@@ -1,0 +1,79 @@
+pipeline {
+    agent any
+   
+    tools {
+        maven 'Maven'
+        jdk 'JDK'
+    }
+
+    stages {
+
+        stage('Checkout') {
+            steps {
+                git branch: 'main', url: 'https://github.com/swastisudha2025-source/devops_project.git'
+
+            }
+        }
+
+        stage('Build') {
+            steps {
+                bat 'mvn clean package'
+            }
+        }
+
+        stage('Test') {
+            steps {
+                bat 'mvn test'
+            }
+        }
+    }
+    post {
+        always {
+                    junit allowEmptyResults: true, testResults: '**/target/surefire-reports/*.xml'
+
+        }
+    }
+}
+
+
+
+7-
+wget https://bootstrap.pypa.io/get-pip.py
+
+python3 get-pip.py --user
+
+
+python3 -m pip install --user ansible / python3 -m pip install --user ansible --break-system-packages
+
+
+export PATH=$HOME/.local/bin:$PATH
+
+
+export LC_ALL=C.UTF-8
+export LANG=C.UTF-8
+
+
+ansible --version
+mkdir l7
+cd  l7
+
+nano hosts.ini
+ [local]
+ localhost ansible_connection=local
+
+
+nano setup.yml
+
+
+---
+- name: Message Playbook
+  hosts: local
+  gather_facts: no
+
+  tasks:
+    - name: print Hello message
+      debug:
+        msg: "Hello"
+
+
+ansible-playbook -i hosts.ini setup.yml
